@@ -1,41 +1,42 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchExchangeRates } from './utils/api'; // Načti funkci pro API request
+import axios from 'axios';
 
 const ExchangeRateDetail = () => {
-  const { currency } = useParams();
-  const [rateDetail, setRateDetail] = useState(null);
-  const [loading, setLoading] = useState(true);
+
+  const { id } = useParams();
+  const [exchangeRate, setExchangeRate] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const getRateDetail = async () => {
-      try {
-        const response = await fetchExchangeRates();
-        const rate = response.data.find((r) => r.currency === currency);
-        if (rate) setRateDetail(rate);
-        else setError('Currency not found');
-        setLoading(false);
-      } catch (err) {
-        setError('Failed to load exchange rate detail');
-        setLoading(false);
-      }
-    };
+    axios.get(`/api/exchangerates/${id}`)
+      .then(response => setExchangeRate(response.data))
+      .catch((error) => {
+        console.log(error.message);
+        setError(error.message);
+      });
+  }, [id]);
 
-    getRateDetail();
-  }, [currency]);
+  if (error) {
+    return <div className="alert alert-danger">Chyba: {error}</div>;
+  }
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
-  if (!rateDetail) return null;
+  if (!exchangeRate) return <p>Loading...</p>;
 
   return (
     <div>
-      <h2>Details for {rateDetail.currency}</h2>
-      <p>Rate: {rateDetail.rate}</p>
-      <p>Unit: {rateDetail.unit}</p>
-      <p>Country: {rateDetail.country}</p>
-      <p>Move: {rateDetail.move}</p>
+      <h2>{exchangeRate.name} ({exchangeRate.shortName})</h2>
+      <p>Country: {exchangeRate.country}</p>
+      <p>Valid From: {exchangeRate.validFrom}</p>
+      <p>Amount: {exchangeRate.amount}</p>
+      <p>ValBuy: {exchangeRate.valbuy}</p>
+      <p>ValSell: {exchangeRate.valsell}</p>
+      <p>Current Buy Rate: {exchangeRate.currBuy}</p>
+      <p>Current Sell Rate: {exchangeRate.currSell}</p>
+      <p>Current Mid Rate: {exchangeRate.currMid}</p>
+      <p>Version: {exchangeRate.version}</p>
+      <p>CnbMid: {exchangeRate.cnbMid}</p>
+      <p>EcbMid: {exchangeRate.ecbMid}</p>
     </div>
   );
 };

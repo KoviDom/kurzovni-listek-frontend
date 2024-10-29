@@ -1,4 +1,4 @@
-const { useState, useEffect } = require("react")
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchExchangeRates } from './utils/api'; // Načti funkci pro API request
 
@@ -31,10 +31,8 @@ const ExchangeRateList = () => {
             <h1>Exchange Rates</h1>
             <ul>
                 {exchangeRates.map((rate) => (
-                    <li key={rate.currency}>
-                        <Link to={`/rates/${rate.currency}`}>
-                            {rate.currency} - {rate.rate} {rate.unit}
-                        </Link>
+                    <li key={rate._id}>
+                        <Link to={`/exchange-rate/${rate._id}`}>{rate.name} - {rate.shortName}</Link>
                     </li>
                 ))}
             </ul>
