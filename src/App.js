@@ -8,7 +8,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<ExchangeRateList />} />
-        <Route path="/rates/:id" element={<ExchangeRateDetail />} />
+        <Route path="/exchange-rate/:id" element={<ExchangeRateDetail />} />
       </Routes>
     </Router>
   );

@@ -1,42 +1,45 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { useSearchParams } from "react-router-dom";
 
 const ExchangeRateDetail = () => {
 
   const { id } = useParams();
-  const [exchangeRate, setExchangeRate] = useState(null);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    axios.get(`/api/exchangerates/${id}`)
-      .then(response => setExchangeRate(response.data))
-      .catch((error) => {
-        console.log(error.message);
-        setError(error.message);
-      });
-  }, [id]);
-
-  if (error) {
-    return <div className="alert alert-danger">Chyba: {error}</div>;
-  }
-
-  if (!exchangeRate) return <p>Loading...</p>;
+  console.log(id);
+  const [searchParams] = useSearchParams();
+  const shortName = searchParams.get("shortName");
+  const validFrom = searchParams.get("validFrom");
+  const name = searchParams.get("name");
+  const country = searchParams.get("country");
+  const move = searchParams.get("move");
+  const amount = searchParams.get("amount");
+  const valBuy = searchParams.get("valBuy");
+  const valSell = searchParams.get("valSell");
+  const valMid = searchParams.get("valMid");
+  const currBuy = searchParams.get("currBuy");
+  const currSell = searchParams.get("currSell");
+  const currMid = searchParams.get("currMid");
+  const version = searchParams.get("version");
+  const cnbMid = searchParams.get("cnbMid");
+  const ecbMid = searchParams.get("ecbMid");
 
   return (
     <div>
-      <h2>{exchangeRate.name} ({exchangeRate.shortName})</h2>
-      <p>Country: {exchangeRate.country}</p>
-      <p>Valid From: {exchangeRate.validFrom}</p>
-      <p>Amount: {exchangeRate.amount}</p>
-      <p>ValBuy: {exchangeRate.valbuy}</p>
-      <p>ValSell: {exchangeRate.valsell}</p>
-      <p>Current Buy Rate: {exchangeRate.currBuy}</p>
-      <p>Current Sell Rate: {exchangeRate.currSell}</p>
-      <p>Current Mid Rate: {exchangeRate.currMid}</p>
-      <p>Version: {exchangeRate.version}</p>
-      <p>CnbMid: {exchangeRate.cnbMid}</p>
-      <p>EcbMid: {exchangeRate.ecbMid}</p>
+      <h2>{name} ({shortName})</h2>
+      <p>Country: {country}</p>
+      <p>Valid From: {validFrom}</p>
+      <p>Amount: {amount}</p>
+      <p>Move: {move}</p>
+      <p>ValBuy: {valBuy}</p>
+      <p>ValSell: {valSell}</p>
+      <p>ValMid: {valMid}</p>
+      <p>Current Buy Rate: {currBuy}</p>
+      <p>Current Sell Rate: {currSell}</p>
+      <p>Current Mid Rate: {currMid}</p>
+      <p>Version: {version}</p>
+      <p>CnbMid: {cnbMid}</p>
+      <p>EcbMid: {ecbMid}</p>
     </div>
   );
 };

@@ -30,9 +30,13 @@ const ExchangeRateList = () => {
         <div>
             <h1>Exchange Rates</h1>
             <ul>
-                {exchangeRates.map((rate) => (
-                    <li key={rate._id}>
-                        <Link to={`/exchange-rate/${rate._id}`}>{rate.name} - {rate.shortName}</Link>
+                {exchangeRates.map((rate, index) => (
+                    <li key={index + 1}>
+                        <Link to={`/exchange-rate/${rate.shortName}?shortName=${rate.shortName}&validFrom=${rate.validFrom}amount=${rate.amount}&name=${rate.name}&country=${rate.country}&
+                        move=${rate.move}&valBuy=${rate.valBuy}&valSell=${rate.valSell}&valMid=${rate.valMid}&currBuy=${rate.currBuy}&currSell=${rate.currSell}&
+                        currMid=${rate.currMid}&version=${rate.version}&cnbMid=${rate.cnbMid}&ecbMid=${rate.ecbMid}`}>
+                        {rate.name} - {rate.shortName}
+                        </Link>
                     </li>
                 ))}
             </ul>
