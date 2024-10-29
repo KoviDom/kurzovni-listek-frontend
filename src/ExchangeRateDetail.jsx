@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchExchangeRates } from './api';
+import { fetchExchangeRates } from './utils/api'; // Načti funkci pro API request
 
 const ExchangeRateDetail = () => {
   const { currency } = useParams();

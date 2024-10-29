@@ -1,6 +1,6 @@
 const { useState, useEffect } = require("react")
 import { Link } from 'react-router-dom';
-import { fetchExchangeRates } from './api'; // Načti funkci pro API request
+import { fetchExchangeRates } from './utils/api'; // Načti funkci pro API request
 
 const ExchangeRateList = () => {
 
