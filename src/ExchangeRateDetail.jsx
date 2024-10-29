@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
 import { useSearchParams } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 const ExchangeRateDetail = () => {
 
@@ -25,7 +24,7 @@ const ExchangeRateDetail = () => {
   const ecbMid = searchParams.get("ecbMid");
 
   return (
-    <div>
+    <div className="container">
       <h2>{name} ({shortName})</h2>
       <p>Country: {country}</p>
       <p>Valid From: {validFrom}</p>
@@ -40,6 +39,7 @@ const ExchangeRateDetail = () => {
       <p>Version: {version}</p>
       <p>CnbMid: {cnbMid}</p>
       <p>EcbMid: {ecbMid}</p>
+      <Link to="/" className="btn btn-primary">Zpět</Link>
     </div>
   );
 };
