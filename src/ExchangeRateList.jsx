@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { fetchExchangeRates } from './utils/api'; // Načti funkci pro API request
+import { fetchExchangeRates } from './utils/api'; // funkce pro API request
 
 const ExchangeRateList = () => {
 
